@@ -18,9 +18,13 @@
         <a href="{% url 'login' %}">Log in</a>
         <a href="{% url 'signup' %}">Sign up</a>
     {% endif %}
-    {% for post in posts %}
-        <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-        <p>{{ post.content }}</p>
-    {% endfor %}
+    {% if posts %}
+        {% for post in posts %}
+            <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+            <p>{{ post.content }}</p>
+        {% endfor %}
+    {% else %}
+        <p>No posts yet.</p>
+    {% endif %}
 </body>
 </html>
