@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>{{ post.title }}</h1>
+    {% if post.author %}<p>By {{ post.author.username }}</p>{% endif %}
     <p>{{ post.content }}</p>
     <a href="{% url 'home' %}">Back to home</a>
 </body>
