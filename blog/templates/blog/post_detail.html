@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ post.title }}</title>
+</head>
+<body>
+    <h1>{{ post.title }}</h1>
+    {% if post.author %}<p>By {{ post.author.username }}</p>{% endif %}
+    {% if user == post.author %}<p>You wrote this post.</p>{% endif %}
+    <p>{{ post.content }}</p>
+    <a href="{% url 'home' %}">Back to home</a>
+</body>
+</html>
