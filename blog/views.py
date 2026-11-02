@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import Post
 
@@ -8,6 +9,7 @@ def home(request):
     return render(request, "blog/home.html", {"posts": posts})
 
 
+@login_required
 def post_detail(request, post_id):
     post = get_object_or_404(Post, id=post_id)
     return render(request, "blog/post_detail.html", {"post": post})
