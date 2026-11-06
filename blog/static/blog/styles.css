@@ -1,4 +1,20 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 40px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    max-width: 700px;
+    background-color: #f0f0f0;
+    color: #333333;
+    line-height: 1.6;
+}
+
+h1 {
+    color: #1f3a5f;
+    border-bottom: 2px solid #1f3a5f;
+    padding-bottom: 10px;
+}
+
+h2 {
+    color: #1f3a5f;
+    margin-top: 30px;
 }
