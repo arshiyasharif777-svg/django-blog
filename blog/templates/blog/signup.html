@@ -1,18 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign up</title>
-    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
-</head>
-<body>
-    <h1>Sign up</h1>
-    <form method="post">
+{% extends "blog/base.html" %}
+
+{% block title %}Sign up{% endblock %}
+
+{% block content %}
+    <form method="post" class="form-card">
+        <h1>Create your account</h1>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Sign up</button>
+        <p class="form-footer">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
     </form>
-    <a href="{% url 'home' %}">Back to home</a>
-</body>
-</html>
+{% endblock %}
