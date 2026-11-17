@@ -1,7 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
-from .forms import PostForm
+from .forms import PostForm, SignUpForm
 from .models import Post
 
 
@@ -18,14 +17,13 @@ def post_detail(request, post_id):
 
 def signup(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect("home")
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, "blog/signup.html", {"form": form})
-
 
 @login_required
 def create_post(request):
