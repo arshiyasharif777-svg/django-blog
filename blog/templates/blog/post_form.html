@@ -1,18 +1,13 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New post</title>
-    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
-</head>
-<body>
-    <h1>New post</h1>
-    <form method="post">
+{% extends "blog/base.html" %}
+
+{% block title %}New post{% endblock %}
+
+{% block content %}
+    <form method="post" class="form-card">
+        <h1>New post</h1>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save</button>
+        <p class="form-footer"><a href="{% url 'home' %}">&larr; Back to home</a></p>
     </form>
-    <a href="{% url 'home' %}">Back to home</a>
-</body>
-</html>
+{% endblock %}

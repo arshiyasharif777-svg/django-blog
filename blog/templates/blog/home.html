@@ -1,32 +1,31 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Blog</title>
-    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
-</head>
-<body>
-    <h1>Welcome to my blog</h1>
-    <p>This is my first template.</p>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}</p>
-        <a href="{% url 'create_post' %}">New post</a>
-        <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button type="submit">Log out</button>
-        </form>
-    {% else %}
-        <a href="{% url 'login' %}">Log in</a>
-        <a href="{% url 'signup' %}">Sign up</a>
-    {% endif %}
+{% extends "blog/base.html" %}
+
+{% block title %}My Blog{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>Welcome to my blog</h1>
+        <p>Read stories and ideas from our community, or share your own.</p>
+        {% if user.is_authenticated %}
+            <a class="btn btn-light" href="{% url 'create_post' %}">Write a post</a>
+        {% else %}
+            <a class="btn btn-light" href="{% url 'signup' %}">Join us</a>
+        {% endif %}
+    </section>
+
+    <h2 class="section-title">Latest posts</h2>
     {% if posts %}
-        {% for post in posts %}
-            <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
-            <p>{{ post.content }}</p>
-        {% endfor %}
+        <div class="post-grid">
+            {% for post in posts %}
+                <article class="card">
+                    <h2><a href="{% url 'post_detail' post.id %}">{{ post.title }}</a></h2>
+                    {% if post.author %}<p class="meta">By {{ post.author.username }}</p>{% endif %}
+                    <p>{{ post.content|truncatewords:25 }}</p>
+                    <a class="read-more" href="{% url 'post_detail' post.id %}">Read more <span class="arrow">&rarr;</span></a>
+                </article>
+            {% endfor %}
+        </div>
     {% else %}
-        <p>No posts yet.</p>
+        <div class="empty">No posts yet. Be the first to write one!</div>
     {% endif %}
-</body>
-</html>
+{% endblock %}

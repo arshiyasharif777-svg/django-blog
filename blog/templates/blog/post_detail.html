@@ -1,16 +1,32 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{{ post.title }}</title>
-    <link rel="stylesheet" href="{% static 'blog/styles.css' %}">
-</head>
-<body>
-    <h1>{{ post.title }}</h1>
-    {% if post.author %}<p>By {{ post.author.username }}</p>{% endif %}
-    {% if user == post.author %}<p>You wrote this post.</p>{% endif %}
-    <p>{{ post.content }}</p>
-    <a href="{% url 'home' %}">Back to home</a>
-</body>
-</html>
+{% extends "blog/base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <div class="progress-bar" id="progress-bar"></div>
+
+    <article class="post-page">
+        <a class="back-link" href="{% url 'home' %}">&larr; Back to home</a>
+
+        <h1>{{ post.title }}</h1>
+
+        <div class="post-info">
+            {% if post.author %}
+                <span class="avatar">{{ post.author.username|first|upper }}</span>
+                <div>
+                    <strong>{{ post.author.get_full_name|default:post.author.username }}</strong>
+                    <div class="meta">
+                        <span id="reading-time">{{ post.content|wordcount }} words</span>
+                        {% if user == post.author %}<span class="badge">You wrote this post</span>{% endif %}
+                    </div>
+                </div>
+            {% endif %}
+            <button type="button" id="copy-link" class="btn-outline">Copy link</button>
+        </div>
+
+        <div class="post-body" id="post-body">{{ post.content }}</div>
+
+        <hr class="divider">
+        <a class="btn" href="{% url 'home' %}">&larr; More posts</a>
+    </article>
+{% endblock %}
